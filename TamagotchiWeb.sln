@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TamagotchiWeb", "TamagotchiWeb\TamagotchiWeb.csproj", "{9031D7D1-88C4-4C5E-A6DD-A5CCC55C4262}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TamagotchiBL", "TamagotchiBL\TamagotchiBL.csproj", "{358A31E0-6274-418C-A8B6-E2C83647E8E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9031D7D1-88C4-4C5E-A6DD-A5CCC55C4262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9031D7D1-88C4-4C5E-A6DD-A5CCC55C4262}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9031D7D1-88C4-4C5E-A6DD-A5CCC55C4262}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9031D7D1-88C4-4C5E-A6DD-A5CCC55C4262}.Release|Any CPU.Build.0 = Release|Any CPU
+		{358A31E0-6274-418C-A8B6-E2C83647E8E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{358A31E0-6274-418C-A8B6-E2C83647E8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{358A31E0-6274-418C-A8B6-E2C83647E8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{358A31E0-6274-418C-A8B6-E2C83647E8E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4567B8AC-52E6-4D03-B4F7-D71367B147CC}
+	EndGlobalSection
+EndGlobal
