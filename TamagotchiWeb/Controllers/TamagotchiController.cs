@@ -21,7 +21,7 @@ namespace TamagotchiWeb.Controllers
         }
 
         [Route("GetAnimalList")]
-        [HttpPost]
+        [HttpGet]
         public List<PetDTO> GetAnimalList()
         {
             PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
@@ -29,15 +29,22 @@ namespace TamagotchiWeb.Controllers
             if(player != null)
             {
                 Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
-                List<PetDTO> list = new List<PetDTO>;
+                List<PetDTO> list = new List<PetDTO>();
 
                 if(p != null)
                 {
                     foreach(Pet pet in p.Pets)
                     {
-                        list.Add()
+                        list.Add(new PetDTO(pet));
                     }
                 }
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return list;
+            }
+            else
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return null;
             }
         }
 
