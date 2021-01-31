@@ -18,6 +18,8 @@ namespace TamagotchiWeb.DTO
         public DateTime? BirthDate { get; set; }
 
         public int? PetId { get; set; }
+        public virtual Pet Pet { get; set; }
+        public virtual ICollection<Pet> Pets { get; set; }
 
         public PlayerDTO(Player p) 
         {
@@ -30,6 +32,7 @@ namespace TamagotchiWeb.DTO
             this.Gender = p.Gender;
             this.BirthDate =p.BirthDate;
             this.PetId = p.PetId;
+
         }
     }
 }
