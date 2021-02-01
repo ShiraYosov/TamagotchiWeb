@@ -7,6 +7,7 @@ using Tamagotchi.Models;
 using Microsoft.AspNetCore.Http;
 using TamagotchiWeb.DTO;
 
+
 namespace TamagotchiWeb.Controllers
 {
     [Route("Tamagotchi")]
@@ -109,10 +110,7 @@ namespace TamagotchiWeb.Controllers
 
                 if (p != null)
                 {
-                    p.Pass = newVal;
-                    this.context.Update(p);
-                    this.context.SaveChanges();
-                    Console.WriteLine("Password changed successfully! Press any key to go back");
+                    this.context.ChangePass(p, newVal);
                 }
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
             }
@@ -134,10 +132,7 @@ namespace TamagotchiWeb.Controllers
 
                 if (p != null)
                 {
-                    p.UserName = newVal;
-                    this.context.Update(p);
-                    this.context.SaveChanges();
-                    Console.WriteLine("Username changed successfully! Press any key to go back");
+                    this.context.ChangeUserName(p, newVal);
                 }
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
             }
@@ -159,10 +154,7 @@ namespace TamagotchiWeb.Controllers
 
                 if (p != null)
                 {
-                    p.Email = newVal;
-                    this.context.Update(p);
-                    this.context.SaveChanges();
-                    Console.WriteLine("Email changed successfully! Press any key to go back");
+                    this.context.ChangeEmail(p, newVal);
                 }
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
             }
