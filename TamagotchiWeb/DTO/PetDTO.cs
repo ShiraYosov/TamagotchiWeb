@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tamagotchi.Models;
 
 namespace TamagotchiWeb.DTO
 {
@@ -18,6 +19,21 @@ namespace TamagotchiWeb.DTO
         public DateTime? BirthDate { get; set; }
         public double? PetAge { get; set; }
         public double? PetWeight { get; set; }
+
+        public PetDTO(Pet p)
+        {
+            this.PetId = p.PetId;
+            this.PlayerId = p.PlayerId;
+            this.PetName = p.PetName;
+            this.HungerId = p.HungerId;
+            this.JoyId = p.JoyId;
+            this.CleanId = p.CleanId;
+            this.StatusId = p.StatusId;
+            this.LifeTimeId = p.LifeTimeId;
+            this.BirthDate = p.BirthDate;
+            this.PetAge = p.PetAge;
+            this.PetWeight = p.PetWeight;
+        }
 
         //    public virtual Clean Clean { get; set; }
         //    public virtual Hunger Hunger { get; set; }

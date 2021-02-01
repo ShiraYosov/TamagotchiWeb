@@ -21,6 +21,34 @@ namespace TamagotchiWeb.Controllers
             this.context = context;
         }
 
+        [Route("GetAnimalList")]
+        [HttpGet]
+        public List<PetDTO> GetAnimalList()
+        {
+            PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
+
+            if(player != null)
+            {
+                Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
+                List<PetDTO> list = new List<PetDTO>();
+
+                if(p != null)
+                {
+                    foreach(Pet pet in p.Pets)
+                    {
+                        list.Add(new PetDTO(pet));
+                    }
+                }
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return list;
+            }
+            else
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return null;
+            }
+        }
+
         [Route("Login")]
         [HttpGet]
         public PlayerDTO Login([FromQuery] string userName, [FromQuery] string pass)
