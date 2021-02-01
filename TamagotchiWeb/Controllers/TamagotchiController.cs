@@ -51,7 +51,7 @@ namespace TamagotchiWeb.Controllers
 
         [Route("GetPetStatus")]
         [HttpGet]
-        public string GetPetStatus()
+        public string GetPetStatus([FromQuery] int id)
         {
             PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
             string status = "";
@@ -61,7 +61,6 @@ namespace TamagotchiWeb.Controllers
                 Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
                 if(p != null)
                 {
-                    int id = (int)p.Pet.StatusId;
                     status = context.GetStatus(id);
                 }
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
