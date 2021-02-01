@@ -60,41 +60,7 @@ namespace Tamagotchi.Models
         }
 
 
-        //Last actions of a specific pet by action type
-        public List<Object> LastActions(Player p, int name, int ID)
-        {
-            int start = 0;
-            int end = 0;
-            // Defining start and end IDs accoding to the database
-            if (name == 1)
-            {
-                start = 12;
-                end = 24;
-            }
-            if (name == 2)
-            {
-                start = 6;
-                end = 11;
-            }
-            if (name == 3)
-            {
-                start = 1;
-                end = 5;
-            }
-
-            //Creating a list according to the wanted field and the chosen pet
-            List<Object> actions = (from PetActivities in p.Pet.PetActivities
-                                    where (PetActivities.Activity.ActivityId >= start && PetActivities.Activity.ActivityId <= end)
-                                    where PetActivities.PetId == ID
-                                    select new
-                                    {
-                                        Name = PetActivities.Activity.ActivityName,
-                                        ActionDate = PetActivities.ActionDate
-                                    }).ToList<Object>();
-            return actions;
-        }
-
-
+       
 
     }
 }
