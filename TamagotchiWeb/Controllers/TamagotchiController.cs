@@ -44,5 +44,25 @@ namespace TamagotchiWeb.Controllers
             }
         }
 
+        [Route("PrintFood")]
+        [HttpGet]
+        public Task<List<Food>> PrintFood()
+        {
+            PlayerDTO pDTO = HttpContext.Session.GetObject<PlayerDTO>("player");
+            if(pDTO != null)
+            {
+
+            }
+        }
+
+        public void Feed(int num)
+        {
+            PlayerDTO pDTO = HttpContext.Session.GetObject<PlayerDTO>("player");
+            if (pDTO != null)
+            {
+                
+            }
+        }
+
     }
 }
