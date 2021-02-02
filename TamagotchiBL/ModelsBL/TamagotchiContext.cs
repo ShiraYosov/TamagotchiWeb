@@ -94,7 +94,11 @@ namespace Tamagotchi.Models
             return actions;
         }
 
-
-
+        public string GetStatus(int statusID)
+        {
+            PetStatus p = this.PetStatuses.Where(s => statusID == s.StatusId).FirstOrDefault();
+            string status = p.Status;
+            return status;
+        }
     }
 }
