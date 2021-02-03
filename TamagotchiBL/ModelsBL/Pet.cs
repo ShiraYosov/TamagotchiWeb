@@ -19,7 +19,7 @@ namespace Tamagotchi.Models
         }
 
         //Feed animal
-        public void Feed( Food f, TamagotchiContext db) 
+        public void Feed(Food f, TamagotchiContext db) 
         {
             //Check pet's hunger level
             if (this.HungerId + f.SatiatyLevel <= Hunger.MAX_HUNGER_LEVEL)

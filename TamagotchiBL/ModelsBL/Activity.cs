@@ -6,5 +6,7 @@ namespace Tamagotchi.Models
 {
     public partial class Activity
     {
+
+        
     }
 }

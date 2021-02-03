@@ -31,7 +31,7 @@ namespace Tamagotchi.Models
             return p;
         }
 
-       
+
         // Change password method
         public void ChangePass(Player p, string newVal)
         {
@@ -100,5 +100,24 @@ namespace Tamagotchi.Models
             string status = p.Status;
             return status;
         }
+
+        public string GetFoodNameByID(int id)
+        {
+            foreach (Activity a in this.Activities)
+            {
+                if (a.ActivityId == id)
+                    return a.ActivityName;
+            }
+            return null;
+        }
+
+        //public bool GetFoodByID(int ID)
+        //{
+        //    if (ID >= 12 && ID <= 24)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
     }
 }

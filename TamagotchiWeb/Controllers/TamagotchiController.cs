@@ -27,14 +27,14 @@ namespace TamagotchiWeb.Controllers
         {
             PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
 
-            if(player != null)
+            if (player != null)
             {
                 Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
                 List<PetDTO> list = new List<PetDTO>();
 
-                if(p != null)
+                if (p != null)
                 {
-                    foreach(Pet pet in p.Pets)
+                    foreach (Pet pet in p.Pets)
                     {
                         list.Add(new PetDTO(pet));
                     }
@@ -59,7 +59,7 @@ namespace TamagotchiWeb.Controllers
             if (player != null)
             {
                 Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
-                if(p != null)
+                if (p != null)
                 {
                     status = context.GetStatus(id);
                 }
@@ -99,22 +99,39 @@ namespace TamagotchiWeb.Controllers
 
         [Route("PrintFood")]
         [HttpGet]
-        public Task<List<Food>> PrintFood()
+        public List<FoodDTO> PrintFood()
         {
             PlayerDTO pDTO = HttpContext.Session.GetObject<PlayerDTO>("player");
-            if(pDTO != null)
-            {
+            if (pDTO != null)
+            {            
+                List<FoodDTO> list = new List<FoodDTO>();
+                foreach (Food f in context.Foods)
+                {
+                    FoodDTO ff = new FoodDTO(f,f.FoodNavigation);
+                    list.Add(ff);               
+                }
+              
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return list;
+            }
 
+            else
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return null;
             }
         }
 
-        public void Feed(int num)
+        public void Feed([FromQuery]int id)
         {
             PlayerDTO pDTO = HttpContext.Session.GetObject<PlayerDTO>("player");
             if (pDTO != null)
             {
-                
+                Food f = context.Foods.Where(n => n.FoodId == id).FirstOrDefault();
+                pDTO.Pet.Feed(f, context);
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
             }
+            Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
         }
 
         [Route("ChangePass")]
@@ -182,6 +199,9 @@ namespace TamagotchiWeb.Controllers
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
             }
         }
-
     }
+
+   
+
 }
+
