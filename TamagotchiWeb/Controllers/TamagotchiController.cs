@@ -26,50 +26,68 @@ namespace TamagotchiWeb.Controllers
         [HttpGet]
         public List<PetDTO> GetAnimalList()
         {
-            PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
-
-            if (player != null)
+            try
             {
-                Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
-                List<PetDTO> list = new List<PetDTO>();
+                PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
 
-                if (p != null)
+                if (player != null)
                 {
-                    foreach (Pet pet in p.Pets)
+                    Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
+                    List<PetDTO> list = new List<PetDTO>();
+
+                    if (p != null)
                     {
-                        list.Add(new PetDTO(pet));
+                        foreach (Pet pet in p.Pets)
+                        {
+                            list.Add(new PetDTO(pet));
+                        }
                     }
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return list;
                 }
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return list;
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return null;
+                }
             }
-            else
+            catch (Exception e)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Console.WriteLine(e.Message);
                 return null;
             }
+
+
         }
 
         [Route("GetPetStatus")]
         [HttpGet]
         public string GetPetStatus([FromQuery] int id)
         {
-            PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
-            string status = "";
+            try
+            {
+                PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
+                string status = "";
 
-            if (player != null)
-            {
-                Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
-                if (p != null)
+                if (player != null)
                 {
-                    status = context.GetStatus(id);
+                    Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
+                    if (p != null)
+                    {
+                        status = context.GetStatus(id);
+                    }
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return status;
                 }
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return status;
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return null;
+                }
             }
-            else
+            catch (Exception e)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Console.WriteLine(e.Message);
                 return null;
             }
         }
@@ -78,22 +96,30 @@ namespace TamagotchiWeb.Controllers
         [HttpGet]
         public string GetCleanLevel([FromQuery] int id)
         {
-            PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
-            string level = "";
+            try
+            {
+                PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
+                string level = "";
 
-            if (player != null)
-            {
-                Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
-                if (p != null)
+                if (player != null)
                 {
-                    level = context.GetClean(id);
+                    Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
+                    if (p != null)
+                    {
+                        level = context.GetClean(id);
+                    }
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return level;
                 }
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return level;
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return null;
+                }
             }
-            else
+            catch (Exception e)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Console.WriteLine(e.Message);
                 return null;
             }
         }
@@ -102,22 +128,30 @@ namespace TamagotchiWeb.Controllers
         [HttpGet]
         public string GetHungerLevel([FromQuery] int id)
         {
-            PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
-            string level = "";
+            try
+            {
+                PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
+                string level = "";
 
-            if (player != null)
-            {
-                Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
-                if (p != null)
+                if (player != null)
                 {
-                    level = context.GetHunger(id);
+                    Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
+                    if (p != null)
+                    {
+                        level = context.GetHunger(id);
+                    }
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return level;
                 }
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return level;
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return null;
+                }
             }
-            else
+            catch (Exception e)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Console.WriteLine(e.Message);
                 return null;
             }
         }
@@ -126,22 +160,30 @@ namespace TamagotchiWeb.Controllers
         [HttpGet]
         public string GetJoyLevel([FromQuery] int id)
         {
-            PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
-            string level = "";
+            try
+            {
+                PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
+                string level = "";
 
-            if (player != null)
-            {
-                Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
-                if (p != null)
+                if (player != null)
                 {
-                    level = context.GetJoy(id);
+                    Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
+                    if (p != null)
+                    {
+                        level = context.GetJoy(id);
+                    }
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return level;
                 }
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return level;
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return null;
+                }
             }
-            else
+            catch (Exception e)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Console.WriteLine(e.Message);
                 return null;
             }
         }
@@ -150,22 +192,30 @@ namespace TamagotchiWeb.Controllers
         [HttpGet]
         public PlayerDTO Login([FromQuery] string userName, [FromQuery] string pass)
         {
-            Player p = context.Login(userName, pass);
-
-            //Check user name and password
-            if (p != null)
+            try
             {
-                PlayerDTO pDTO = new PlayerDTO(p);
+                Player p = context.Login(userName, pass);
 
-                HttpContext.Session.SetObject("player", pDTO);
+                //Check user name and password
+                if (p != null)
+                {
+                    PlayerDTO pDTO = new PlayerDTO(p);
 
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return pDTO;
+                    HttpContext.Session.SetObject("player", pDTO);
+
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return pDTO;
+                }
+                else
+                {
+
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return null;
+                }
             }
-            else
+            catch (Exception e)
             {
-
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Console.WriteLine(e.Message);
                 return null;
             }
         }
@@ -174,92 +224,123 @@ namespace TamagotchiWeb.Controllers
         [HttpGet]
         public List<FoodDTO> PrintFood()
         {
-            PlayerDTO pDTO = HttpContext.Session.GetObject<PlayerDTO>("player");
-            if (pDTO != null)
-            {            
-                List<FoodDTO> list = new List<FoodDTO>();
-                foreach (Food f in context.Foods)
+            try
+            {
+                PlayerDTO pDTO = HttpContext.Session.GetObject<PlayerDTO>("player");
+                if (pDTO != null)
                 {
-                    FoodDTO ff = new FoodDTO(f,f.FoodNavigation);
-                    list.Add(ff);               
+                    List<FoodDTO> list = new List<FoodDTO>();
+                    foreach (Food f in context.Foods)
+                    {
+                        FoodDTO ff = new FoodDTO(f, f.FoodNavigation);
+                        list.Add(ff);
+                    }
+
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return list;
                 }
-              
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return list;
+
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return null;
+                }
             }
 
-            else
+            catch (Exception e)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Console.WriteLine(e.Message);
                 return null;
             }
         }
 
         [Route("Feed")]
         [HttpGet]
-        public void Feed([FromQuery]int id)
+        public void Feed([FromQuery] int id)
         {
-            PlayerDTO pDTO = HttpContext.Session.GetObject<PlayerDTO>("player");
-            if (pDTO != null)
+            try
             {
-                Player p = context.GetPlayerByID(pDTO.PlayerId);
-                Food f = context.Foods.Where(n => n.FoodId == id).FirstOrDefault();
-                p.Pets.Where(p => p.StatusId != DEAD).FirstOrDefault().Feed(f, context);
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                PlayerDTO pDTO = HttpContext.Session.GetObject<PlayerDTO>("player");
+                if (pDTO != null)
+                {
+                    Player p = context.GetPlayerByID(pDTO.PlayerId);
+                    Food f = context.Foods.Where(n => n.FoodId == id).FirstOrDefault();
+                    p.Pets.Where(p => p.StatusId != DEAD).FirstOrDefault().Feed(f, context);
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                }
+
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                }
             }
-            
-            else
+            catch (Exception e)
             {
-              Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Console.WriteLine(e.Message);
             }
-            
+
         }
 
         [Route("GetPlayer")]
         [HttpGet]
         public PlayerDTO GetPlayer()
         {
-            PlayerDTO pDto = HttpContext.Session.GetObject<PlayerDTO>("player");
-            //Check if user logged in!
-            if (pDto != null)
+            try
             {
-                Player p = context.GetPlayerByID(pDto.PlayerId);
-                
-                if (p != null)
+                PlayerDTO pDto = HttpContext.Session.GetObject<PlayerDTO>("player");
+                //Check if user logged in!
+                if (pDto != null)
                 {
-                    pDto = new PlayerDTO(p);
-                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                    return pDto;
+                    Player p = context.GetPlayerByID(pDto.PlayerId);
+
+                    if (p != null)
+                    {
+                        pDto = new PlayerDTO(p);
+                        Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                        return pDto;
+                    }
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return null;
                 }
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return null;
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return null;
+                }
             }
-            else
+            catch (Exception e)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Console.WriteLine(e.Message);
                 return null;
             }
         }
 
         [Route("ChangePass")]
         [HttpGet]
-        public void ChangePass([FromQuery]string newVal)
+        public void ChangePass([FromQuery] string newVal)
         {
-            PlayerDTO pDto = HttpContext.Session.GetObject<PlayerDTO>("player");
-            //Check if user logged in!
-            if (pDto != null)
+            try
             {
-                Player p = context.GetPlayerByID(pDto.PlayerId);
-
-                if (p != null)
+                PlayerDTO pDto = HttpContext.Session.GetObject<PlayerDTO>("player");
+                //Check if user logged in!
+                if (pDto != null)
                 {
-                    this.context.ChangePass(p, newVal);
+                    Player p = context.GetPlayerByID(pDto.PlayerId);
+
+                    if (p != null)
+                    {
+                        this.context.ChangePass(p, newVal);
+                    }
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 }
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                }
             }
-            else
+            catch (Exception e)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Console.WriteLine(e.Message);
             }
         }
 
@@ -267,21 +348,28 @@ namespace TamagotchiWeb.Controllers
         [HttpGet]
         public void ChangeUserName([FromQuery] string newVal)
         {
-            PlayerDTO pDto = HttpContext.Session.GetObject<PlayerDTO>("player");
-            //Check if user logged in!
-            if (pDto != null)
+            try
             {
-                Player p = context.GetPlayerByID(pDto.PlayerId);
-
-                if (p != null)
+                PlayerDTO pDto = HttpContext.Session.GetObject<PlayerDTO>("player");
+                //Check if user logged in!
+                if (pDto != null)
                 {
-                    this.context.ChangeUserName(p, newVal);
+                    Player p = context.GetPlayerByID(pDto.PlayerId);
+
+                    if (p != null)
+                    {
+                        this.context.ChangeUserName(p, newVal);
+                    }
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 }
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                }
             }
-            else
+            catch (Exception e)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Console.WriteLine(e.Message);
             }
         }
 
@@ -289,21 +377,28 @@ namespace TamagotchiWeb.Controllers
         [HttpGet]
         public void ChangeEmail([FromQuery] string newVal)
         {
-            PlayerDTO pDto = HttpContext.Session.GetObject<PlayerDTO>("player");
-            //Check if user logged in!
-            if (pDto != null)
+            try
             {
-                Player p = context.GetPlayerByID(pDto.PlayerId);
-
-                if (p != null)
+                PlayerDTO pDto = HttpContext.Session.GetObject<PlayerDTO>("player");
+                //Check if user logged in!
+                if (pDto != null)
                 {
-                    this.context.ChangeEmail(p, newVal);
+                    Player p = context.GetPlayerByID(pDto.PlayerId);
+
+                    if (p != null)
+                    {
+                        this.context.ChangeEmail(p, newVal);
+                    }
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 }
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                }
             }
-            else
+            catch (Exception e)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Console.WriteLine(e.Message);
             }
         }
 
@@ -311,25 +406,33 @@ namespace TamagotchiWeb.Controllers
         [HttpGet]
         public List<ActivityDTO> GetCList()
         {
-            PlayerDTO pDTO = HttpContext.Session.GetObject<PlayerDTO>("player");
-
-            //Check if user logged in!
-            if (pDTO != null)
+            try
             {
-                List<ActivityDTO> list = new List<ActivityDTO>();
+                PlayerDTO pDTO = HttpContext.Session.GetObject<PlayerDTO>("player");
 
-                foreach (Activity a in context.Activities)
+                //Check if user logged in!
+                if (pDTO != null)
                 {
-                    list.Add(new ActivityDTO(a));
-                }
+                    List<ActivityDTO> list = new List<ActivityDTO>();
 
-                
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return list;
+                    foreach (Activity a in context.Activities)
+                    {
+                        list.Add(new ActivityDTO(a));
+                    }
+
+
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return list;
+                }
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return null;
+                }
             }
-            else
+            catch (Exception e)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Console.WriteLine(e.Message);
                 return null;
             }
         }
@@ -339,27 +442,29 @@ namespace TamagotchiWeb.Controllers
 
         public void UpdateCLevel([FromQuery] int cleanId)
         {
-            PlayerDTO pDto = HttpContext.Session.GetObject<PlayerDTO>("player");
-            //Check if user logged in!
-            if (pDto != null)
+            try
             {
-                Player p = context.GetPlayerByID(pDto.PlayerId);
-                Activity a = context.Activities.Where(ac => ac.ActivityId == cleanId).FirstOrDefault();
+                PlayerDTO pDto = HttpContext.Session.GetObject<PlayerDTO>("player");
+                //Check if user logged in!
+                if (pDto != null)
+                {
+                    Player p = context.GetPlayerByID(pDto.PlayerId);
+                    Activity a = context.Activities.Where(ac => ac.ActivityId == cleanId).FirstOrDefault();
 
-                p.Pets.Where(p => p.StatusId != DEAD).FirstOrDefault().Cleaning(a, context);
+                    p.Pets.Where(p => p.StatusId != DEAD).FirstOrDefault().Cleaning(a, context);
 
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                }
+                else
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                }
             }
-            else
+            catch (Exception e)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Console.WriteLine(e.Message);
             }
         }
-
-        
     }
-
-   
-
 }
 
