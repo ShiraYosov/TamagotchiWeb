@@ -15,6 +15,7 @@ namespace TamagotchiWeb.Controllers
     public class TamagotchiController : ControllerBase
     {
         TamagotchiContext context;
+        const int DEAD = 1;
 
         public TamagotchiController(TamagotchiContext context)
         {
@@ -73,6 +74,78 @@ namespace TamagotchiWeb.Controllers
             }
         }
 
+        [Route("GetCleanLevel")]
+        [HttpGet]
+        public string GetCleanLevel([FromQuery] int id)
+        {
+            PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
+            string level = "";
+
+            if (player != null)
+            {
+                Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
+                if (p != null)
+                {
+                    level = context.GetClean(id);
+                }
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return level;
+            }
+            else
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return null;
+            }
+        }
+
+        [Route("GetHungerLevel")]
+        [HttpGet]
+        public string GetHungerLevel([FromQuery] int id)
+        {
+            PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
+            string level = "";
+
+            if (player != null)
+            {
+                Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
+                if (p != null)
+                {
+                    level = context.GetHunger(id);
+                }
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return level;
+            }
+            else
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return null;
+            }
+        }
+
+        [Route("GetJoyLevel")]
+        [HttpGet]
+        public string GetJoyLevel([FromQuery] int id)
+        {
+            PlayerDTO player = HttpContext.Session.GetObject<PlayerDTO>("player");
+            string level = "";
+
+            if (player != null)
+            {
+                Player p = context.Players.Where(pl => pl.PlayerId == player.PlayerId).FirstOrDefault();
+                if (p != null)
+                {
+                    level = context.GetJoy(id);
+                }
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return level;
+            }
+            else
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return null;
+            }
+        }
+
         [Route("Login")]
         [HttpGet]
         public PlayerDTO Login([FromQuery] string userName, [FromQuery] string pass)
@@ -122,21 +195,29 @@ namespace TamagotchiWeb.Controllers
             }
         }
 
+        [Route("Feed")]
+        [HttpGet]
         public void Feed([FromQuery]int id)
         {
             PlayerDTO pDTO = HttpContext.Session.GetObject<PlayerDTO>("player");
             if (pDTO != null)
             {
+                Player p = context.GetPlayerByID(pDTO.PlayerId);
                 Food f = context.Foods.Where(n => n.FoodId == id).FirstOrDefault();
-                pDTO.Pet.Feed(f, context);
+                p.Pets.Where(p => p.StatusId != DEAD).FirstOrDefault().Feed(f, context);
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
             }
-            Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+            
+            else
+            {
+              Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+            }
+            
         }
 
         [Route("ChangePass")]
         [HttpGet]
-        public void ChangePass(string newVal)
+        public void ChangePass([FromQuery]string newVal)
         {
             PlayerDTO pDto = HttpContext.Session.GetObject<PlayerDTO>("player");
             //Check if user logged in!
@@ -158,7 +239,7 @@ namespace TamagotchiWeb.Controllers
 
         [Route("ChangeUserName")]
         [HttpGet]
-        public void ChangeUserName(string newVal)
+        public void ChangeUserName([FromQuery] string newVal)
         {
             PlayerDTO pDto = HttpContext.Session.GetObject<PlayerDTO>("player");
             //Check if user logged in!
@@ -180,7 +261,7 @@ namespace TamagotchiWeb.Controllers
 
         [Route("ChangeEmail")]
         [HttpGet]
-        public void ChangeEmail(string newVal)
+        public void ChangeEmail([FromQuery] string newVal)
         {
             PlayerDTO pDto = HttpContext.Session.GetObject<PlayerDTO>("player");
             //Check if user logged in!
@@ -199,6 +280,57 @@ namespace TamagotchiWeb.Controllers
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
             }
         }
+
+        [Route("GetCleanList")]
+        [HttpGet]
+        public List<ActivityDTO> GetCList()
+        {
+            PlayerDTO pDTO = HttpContext.Session.GetObject<PlayerDTO>("player");
+
+            //Check if user logged in!
+            if (pDTO != null)
+            {
+                List<ActivityDTO> list = new List<ActivityDTO>();
+
+                foreach (Activity a in context.Activities)
+                {
+                    list.Add(new ActivityDTO(a));
+                }
+
+                
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return list;
+            }
+            else
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return null;
+            }
+        }
+
+        [Route("UpdateCleanLevel")]
+        [HttpGet]
+
+        public void UpdateCLevel([FromQuery] int cleanId)
+        {
+            PlayerDTO pDto = HttpContext.Session.GetObject<PlayerDTO>("player");
+            //Check if user logged in!
+            if (pDto != null)
+            {
+                Player p = context.GetPlayerByID(pDto.PlayerId);
+                Activity a = context.Activities.Where(ac => ac.ActivityId == cleanId).FirstOrDefault();
+
+                p.Pets.Where(p => p.StatusId != DEAD).FirstOrDefault().Cleaning(a, context);
+
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            }
+            else
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+            }
+        }
+
+        
     }
 
    

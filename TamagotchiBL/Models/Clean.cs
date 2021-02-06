@@ -16,6 +16,7 @@ namespace Tamagotchi.Models
         public int CleanId { get; set; }
         public string CleanLevel { get; set; }
 
+        
         public virtual ICollection<PetActivity> PetActivities { get; set; }
         public virtual ICollection<Pet> Pets { get; set; }
     }

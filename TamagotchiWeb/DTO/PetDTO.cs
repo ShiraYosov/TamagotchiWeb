@@ -20,6 +20,7 @@ namespace TamagotchiWeb.DTO
         public double? PetAge { get; set; }
         public double? PetWeight { get; set; }
 
+        public PetDTO() { }
         public PetDTO(Pet p)
         {
             this.PetId = p.PetId;
@@ -35,14 +36,6 @@ namespace TamagotchiWeb.DTO
             this.PetWeight = p.PetWeight;
         }
 
-        //    public virtual Clean Clean { get; set; }
-        //    public virtual Hunger Hunger { get; set; }
-        //    public virtual Joy Joy { get; set; }
-        //    public virtual LifeCircle LifeTime { get; set; }
-        //    public virtual Player Player { get; set; }
-        //    public virtual PetStatus Status { get; set; }
-        //    public virtual ICollection<PetActivity> PetActivities { get; set; }
-        //    public virtual ICollection<Player> Players { get; set; }
-        //
+       
     }
 }

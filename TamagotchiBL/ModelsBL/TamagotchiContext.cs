@@ -38,7 +38,7 @@ namespace Tamagotchi.Models
             p.Pass = newVal;
             this.Players.Update(p);
             this.SaveChanges();
-            Console.WriteLine("Password changed successfully! Press any key to go back");
+           
         }
 
         //Change username method 
@@ -47,7 +47,7 @@ namespace Tamagotchi.Models
             p.UserName = newVal;
             this.Players.Update(p);
             this.SaveChanges();
-            Console.WriteLine("Username changed successfully! Press any key to go back");
+           
         }
 
         //Change Email method
@@ -56,7 +56,7 @@ namespace Tamagotchi.Models
             p.Email = newVal;
             this.Players.Update(p);
             this.SaveChanges();
-            Console.WriteLine("Email changed successfully! Press any key to go back ");
+           
         }
 
 
@@ -101,23 +101,25 @@ namespace Tamagotchi.Models
             return status;
         }
 
-        public string GetFoodNameByID(int id)
+        public string GetClean(int cleanID)
         {
-            foreach (Activity a in this.Activities)
-            {
-                if (a.ActivityId == id)
-                    return a.ActivityName;
-            }
-            return null;
+            Clean p = this.Cleans.Where(s => cleanID == s.CleanId).FirstOrDefault();
+            string level = p.CleanLevel;
+            return level;
         }
 
-        //public bool GetFoodByID(int ID)
-        //{
-        //    if (ID >= 12 && ID <= 24)
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
+        public string GetJoy(int joyID)
+        {
+            Joy p = this.Joys.Where(s => joyID == s.JoyId).FirstOrDefault();
+            string level = p.Feelings;
+            return level;
+        }
+
+        public string GetHunger(int HungerID)
+        {
+            Hunger p = this.Hungers.Where(s => HungerID == s.HungerId).FirstOrDefault();
+            string level = p.HungerLevel;
+            return level;
+        }
     }
 }

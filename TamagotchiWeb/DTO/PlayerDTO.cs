@@ -18,9 +18,9 @@ namespace TamagotchiWeb.DTO
         public DateTime? BirthDate { get; set; }
 
         public int? PetId { get; set; }
-        public virtual Pet Pet { get; set; }
-        public virtual ICollection<Pet> Pets { get; set; }
-
+        //public virtual Pet Pet { get; set; }
+        public virtual ICollection<PetDTO> Pets { get; set; }
+        public PlayerDTO() { }
         public PlayerDTO(Player p) 
         {
             this.PlayerId = p.PlayerId;
@@ -32,7 +32,15 @@ namespace TamagotchiWeb.DTO
             this.Gender = p.Gender;
             this.BirthDate =p.BirthDate;
             this.PetId = p.PetId;
+            //this.Pet = p.Pet;
+            this.Pets = new List<PetDTO>();
+            foreach(Pet a in p.Pets)
+            {
+                this.Pets.Add(new PetDTO(a));
+            }
+            
 
         }
+
     }
 }
