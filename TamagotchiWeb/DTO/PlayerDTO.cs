@@ -32,7 +32,6 @@ namespace TamagotchiWeb.DTO
             this.Gender = p.Gender;
             this.BirthDate =p.BirthDate;
             this.PetId = p.PetId;
-            //this.Pet = p.Pet;
             this.Pets = new List<PetDTO>();
             foreach(Pet a in p.Pets)
             {

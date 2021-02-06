@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Tamagotchi.Models
+namespace TamagotchiWeb.Models
 {
     public partial class TamagotchiContext : DbContext
     {
@@ -33,12 +33,14 @@ namespace Tamagotchi.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server =localhost\\SQLEXPRESS; Database=Tamagotchi;\nTrusted_Connection=true; MultipleActiveResultSets=true");
+                optionsBuilder.UseSqlServer("Server = localhost\\SQLEXPRESS; Database=Tamagotchi; Trusted_Connection=true");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
             modelBuilder.Entity<Food>(entity =>
             {
                 entity.Property(e => e.FoodId).ValueGeneratedNever();

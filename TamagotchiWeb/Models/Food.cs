@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
-namespace Tamagotchi.Models
+namespace TamagotchiWeb.Models
 {
     [Table("Food")]
     public partial class Food

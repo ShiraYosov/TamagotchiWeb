@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
-namespace Tamagotchi.Models
+namespace TamagotchiWeb.Models
 {
     [Table("Player")]
     [Index(nameof(Email), Name = "UQ__Player__AB6E61648528D883", IsUnique = true)]

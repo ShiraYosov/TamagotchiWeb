@@ -6,27 +6,27 @@ using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
-namespace Tamagotchi.Models
+namespace TamagotchiWeb.Models
 {
-    [Table("Hunger")]
-    public partial class Hunger
+    [Table("Joy")]
+    public partial class Joy
     {
-        public Hunger()
+        public Joy()
         {
             PetActivities = new HashSet<PetActivity>();
             Pets = new HashSet<Pet>();
         }
 
         [Key]
-        [Column("hungerID")]
-        public int HungerId { get; set; }
-        [Column("hungerLevel")]
+        [Column("joyID")]
+        public int JoyId { get; set; }
+        [Column("feelings")]
         [StringLength(50)]
-        public string HungerLevel { get; set; }
+        public string Feelings { get; set; }
 
-        [InverseProperty(nameof(PetActivity.Hunger))]
+        [InverseProperty(nameof(PetActivity.Joy))]
         public virtual ICollection<PetActivity> PetActivities { get; set; }
-        [InverseProperty(nameof(Pet.Hunger))]
+        [InverseProperty(nameof(Pet.Joy))]
         public virtual ICollection<Pet> Pets { get; set; }
     }
 }

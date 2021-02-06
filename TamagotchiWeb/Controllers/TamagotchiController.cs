@@ -215,6 +215,32 @@ namespace TamagotchiWeb.Controllers
             
         }
 
+        [Route("GetPlayer")]
+        [HttpGet]
+        public PlayerDTO GetPlayer()
+        {
+            PlayerDTO pDto = HttpContext.Session.GetObject<PlayerDTO>("player");
+            //Check if user logged in!
+            if (pDto != null)
+            {
+                Player p = context.GetPlayerByID(pDto.PlayerId);
+                
+                if (p != null)
+                {
+                    pDto = new PlayerDTO(p);
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return pDto;
+                }
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return null;
+            }
+            else
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return null;
+            }
+        }
+
         [Route("ChangePass")]
         [HttpGet]
         public void ChangePass([FromQuery]string newVal)
